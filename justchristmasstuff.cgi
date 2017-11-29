@@ -52,7 +52,7 @@ sub parseform
 sub insertfriend
   {
     #Form SQL insert statement
-    $insert = qq~insert jcsaccounts(lname, passkey, fname, phone, email) values('$form{lname}','$form{passkey}','$form{fname}','$form{phone}','$form{email}')~;
+    $insert = qq~insert jcsaccounts(lname, passkey, phone, email, firstname, lastname, streetaddress, city, postalcode, province) values('$form{lname}','$form{passkey}','$form{phone}','$form{email}', '$form{firstname}', '$form{lastname}', '$form{streetaddress}', '$form{city}', '$form{postalcode}', '$form{province}')~;
     $dbh=DBI->connect($connectionInfo,$user,$passwd);
 
   #Prepare MySQL statement and create Statement Handler $sth
@@ -107,7 +107,7 @@ sub displaysuccess
               <head>
 	      <meta charset ="utf-8">
 	      <meta name="viewport" content="width=device-width, initial-scale=1">
-              
+
 	      <style>
 		input[type=button], input[type=submit], input[type=reset] {
     		background-color: #4CAF50;
@@ -118,8 +118,8 @@ sub displaysuccess
     		margin: 4px 2px;
     		cursor: pointer;
 		}
-		
-		input[type=text] {
+
+		input[type=text], input[type=password] {
     		width: 100%;
     		padding: 12px 20px;
     		margin: 8px 0;
@@ -133,10 +133,18 @@ sub displaysuccess
               </head>
               <body bgcolor="#EE6363">
               <form action="justchristmasstuff.cgi" method="POST">
-              <h2>Registration</h2>
+              <center>
+	      <h1>Just Christmas Stuff</h1>
+	      </center>
+		<h2>Registration</h2>
               <p>Login Name: <input type="text" name="lname" value="$form{lname}">$errors{lname}</p>
-              <p>Password: <input type="text" name="passkey" value="$form{passkey}">$errors{passkey}<p>
-              <p>Full Name: <input type="text" name="fname" value="$form{fname}">$errors{fname}<p>
+              <p>Password: <input type="password" name="passkey" value="$form{passkey}">$errors{passkey}<p>
+              <p>First Name: <input type="text" name="firstname" value="$form{firstname}">$errors{firstname}<p>
+              <p>Last Name: <input type="text" name="lastname" value="$form{lastname}">$errors{lastname}<p>
+              <p>Street Address: <input type="text" name="streetaddress" value="$form{streetaddress}">$errors{streetaddress}<p>
+              <p>City: <input type="text" name="city" value="$form{city}">$errors{city}<p>
+              <p>Postal Code: <input type="text" name="postalcode" value="$form{postalcode}">$errors{postalcode}<p>
+              <p>Province: <input type="text" name="province" value="$form{province}">$errors{province}<p>
               <p>Phone Number: <input type="text" name="phone" value="$form{phone}">$errors{phone}</p>
               <p>E-mail: <input type="text" name="email" value="$form{email}">$errors{email}</p>
               <input type="submit" value="Insert" name="Insert"/>
